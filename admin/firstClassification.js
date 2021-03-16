@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 var sql = require('../sql')
 var FirstClassification = require('../sql/col/firstClassification')
+var SecondClassification = require('../sql/col/secondClassification')
 var uuid = require('node-uuid')
 const utils = require('../utils/token')
 
@@ -45,6 +46,13 @@ router.post('/delete',async (ctx,next) => {
     const {
         first_classification_id
     } = ctx.request.body
+    const data =  await sql.find(SecondClassification,{first_classification_id})
+    if(data.length > 0) {
+        return ctx.body = {
+            code:2,
+            message:"请先删除一级分类里的产品"
+        }
+    }
     await sql.delete(FirstClassification,{
         first_classification_id
     },1)
