@@ -1,11 +1,11 @@
 const router = require('koa-router')()
 var sql = require('../sql')
-var CarefullyChosen = require('../sql/col/carefullyChosen')
+var ChangeSeasonClean = require('../sql/col/changeSeasonClean')
 var SecondClassification = require('../sql/col/secondClassification')
 var uuid = require('node-uuid')
 const utils = require('../utils/token')
 
-router.prefix('/admin/carefullyChosen')
+router.prefix('/admin/changeSeasonClean')
 
 
 
@@ -19,21 +19,16 @@ router.post('/set', async (ctx,next) => {
         }
     }
     const {
-        carefullyChosen_name,
-        carefullyChosen_image_url,
-        carefullyChosen_desc,
-        carefullyChosen_price,
-        second_classification_id,
+        clean_changeSeason_name,
+        clean_changeSeason_image_url,
+        second_classification_id
     } = ctx.request.body
 
     const data = await sql.find(SecondClassification,{second_classification_id},{_id:0})
-
     await sql.insert(CarefullyChosen,{
-        carefullyChosen_id:uuid.v1(),
-        carefullyChosen_name,
-        carefullyChosen_image_url,
-        carefullyChosen_desc,
-        carefullyChosen_price,
+        clean_changeSeason_id:uuid.v1(),
+        clean_changeSeason_name,
+        clean_changeSeason_image_url,
         second_classification_id,
         second_classification_name:data[0].second_classification_name
     })
@@ -55,7 +50,7 @@ router.post('/get', async (ctx,next) => {
         }
     }
 
-    const data = await sql.find(CarefullyChosen,{},{_id:0})
+    const data = await sql.find(ChangeSeasonClean,{},{_id:0})
     return ctx.body = {
         code:1,
         data
@@ -73,10 +68,10 @@ router.post('/delete', async (ctx,next) => {
         }
     }
     const {
-        carefullyChosen_id
+        clean_changeSeason_id
     } = ctx.request.body
 
-    await sql.delete(CarefullyChosen,{carefullyChosen_id},{_id:0})
+    await sql.delete(ChangeSeasonClean,{clean_changeSeason_id},{_id:0})
     return ctx.body = {
         code:1,
         message:"删除成功"
@@ -94,22 +89,18 @@ router.post('/update', async (ctx,next) => {
         }
     }
     const {
-        carefullyChosen_name,
-        carefullyChosen_image_url,
-        carefullyChosen_desc,
-        carefullyChosen_price,
-        second_classification_id,
-        carefullyChosen_id
+        clean_changeSeason_id,
+        clean_changeSeason_name,
+        clean_changeSeason_image_url,
+        second_classification_id
     } = ctx.request.body
 
     const data = await sql.find(SecondClassification,{second_classification_id},{_id:0})
 
     await sql.update(CarefullyChosen,{carefullyChosen_id},{
-        carefullyChosen_name,
-        carefullyChosen_image_url,
-        carefullyChosen_desc,
-        carefullyChosen_price,
-        second_classification_id,
+        clean_changeSeason_id,
+        clean_changeSeason_name,
+        clean_changeSeason_image_url,
         second_classification_name:data[0].second_classification_name
     })
     return ctx.body = {
