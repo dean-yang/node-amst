@@ -13,12 +13,21 @@ const path = require("path")
 const index = require('./routes/index')
 const users = require('./routes/users')
 /**
- * api
+ * admin
  */
 const loginAdmin = require('./admin/login')
 const firstClassificationAdmin = require('./admin/firstClassification')
-const secondClassification = require('./admin/secondClassification')
-const banner = require('./admin/banner')
+const secondClassificationAdmin = require('./admin/secondClassification')
+const bannerAdmin = require('./admin/banner')
+
+/**
+ * api
+ */
+const firstClassificationApi = require('./api/firstClassification')
+const secondClassificationApi = require('./api/secondClassification')
+const bannerApi = require('./api/banner')
+
+
 
 const uploadIma = require('./admin/uploaImg')
 
@@ -62,16 +71,24 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
-app.use(uploadIma.routes(), uploadIma.allowedMethods())
 
 
 /**
  * admin
  */
+app.use(uploadIma.routes(), uploadIma.allowedMethods())
 app.use(loginAdmin.routes(),loginAdmin.allowedMethods())
 app.use(firstClassificationAdmin.routes(),firstClassificationAdmin.allowedMethods())
-app.use(secondClassification.routes(),secondClassification.allowedMethods())
-app.use(banner.routes(),banner.allowedMethods())
+app.use(secondClassificationAdmin.routes(),secondClassificationAdmin.allowedMethods())
+app.use(bannerAdmin.routes(),bannerAdmin.allowedMethods())
+
+/**
+ * api
+ */
+ app.use(firstClassificationApi.routes(),firstClassificationApi.allowedMethods())
+ app.use(secondClassificationApi.routes(),secondClassificationApi.allowedMethods())
+ app.use(bannerApi.routes(),bannerApi.allowedMethods())
+
 
 
 
