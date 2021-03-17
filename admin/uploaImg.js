@@ -79,5 +79,28 @@ router.post('/firstClassImages', async (ctx, next) => {
 
 
 
+/**
+ * 上传图片
+ * 返回图片地址
+ */
+ router.post('/carefully', async (ctx, next) => {
+    const file = ctx.request.files.file 
+    const reader = fs.createReadStream(file.path);
+    const timeStr = new Date().getTime()
+    let filePath = path.join(__dirname, '../public/images/carefully') + `/${timeStr}${file.name}`;
+    const upStream = fs.createWriteStream(filePath);
+    reader.pipe(upStream);
+    const url = `${common.ip}carefully/${timeStr}${file.name}`
+    return ctx.body = {
+        code:1,
+        data:{
+            url:url,
+            name:  timeStr + file.name
+        },
+    };
+});
+
+
+
   
 module.exports =  router

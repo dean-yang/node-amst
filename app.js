@@ -18,6 +18,7 @@ const users = require('./routes/users')
 const loginAdmin = require('./admin/login')
 const firstClassificationAdmin = require('./admin/firstClassification')
 const secondClassificationAdmin = require('./admin/secondClassification')
+const carefullyChosenAdmin = require('./admin/carefullyChosen')
 const bannerAdmin = require('./admin/banner')
 
 /**
@@ -81,6 +82,7 @@ app.use(loginAdmin.routes(),loginAdmin.allowedMethods())
 app.use(firstClassificationAdmin.routes(),firstClassificationAdmin.allowedMethods())
 app.use(secondClassificationAdmin.routes(),secondClassificationAdmin.allowedMethods())
 app.use(bannerAdmin.routes(),bannerAdmin.allowedMethods())
+app.use(carefullyChosenAdmin.routes(), carefullyChosenAdmin.allowedMethods())
 
 /**
  * api
