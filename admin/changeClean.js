@@ -49,7 +49,6 @@ router.post('/get', async (ctx,next) => {
             code:0
         }
     }
-
     const data = await sql.find(ChangeSeasonClean,{},{_id:0})
     return ctx.body = {
         code:1,
@@ -92,12 +91,12 @@ router.post('/update', async (ctx,next) => {
         clean_changeSeason_id,
         clean_changeSeason_name,
         clean_changeSeason_image_url,
-        second_classification_id
+        second_classification_id,
     } = ctx.request.body
 
     const data = await sql.find(SecondClassification,{second_classification_id},{_id:0})
 
-    await sql.update(CarefullyChosen,{carefullyChosen_id},{
+    await sql.update(ChangeSeasonClean,{clean_changeSeason_id},{
         clean_changeSeason_id,
         clean_changeSeason_name,
         clean_changeSeason_image_url,
