@@ -22,7 +22,7 @@ router.post('/', async (ctx, next) => {
     const upStream = fs.createWriteStream(filePath);
     // // // 可读流通过管道写入可写流
     reader.pipe(upStream);
-    const url = `${common.ip}/${timeStr}${file.name}`
+    const url = `${common.ip}${timeStr}${file.name}`
     return ctx.body = {
         code:1,
         data:{
