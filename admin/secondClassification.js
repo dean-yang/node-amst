@@ -3,6 +3,7 @@ var sql = require('../sql')
 var SecondClassification = require('../sql/col/secondClassification')
 var FirstClassification = require('../sql/col/firstClassification')
 var CarefullyChosen = require('../sql/col/carefullyChosen')
+var changeSeasonClean = require('../sql/col/changeSeasonClean')
 var uuid = require('node-uuid')
 const utils = require('../utils/token')
 
@@ -21,11 +22,18 @@ router.post('/delete', async (ctx,next)=>{
         second_classification_id
     } = ctx.request.body
 
-    const data  = await sql.find(CarefullyChosen,{second_classification_id},{_id:0})
-    if(data.length > 0) {
+    const carefullyChosenData  = await sql.find(CarefullyChosen,{second_classification_id},{_id:0})
+    if(carefullyChosenData.length > 0) {
         return ctx.body = {
             code:2,
-            message:"请先删除本二级产品所关联精选"
+            message:"请先删除本二级产品所关联精选产品"
+        }
+    }
+    const changeSeasonCleanData = await sql.find(changeSeasonClean,{second_classification_id},{_id:0})
+    if(changeSeasonCleanData.length > 0) {
+        return ctx.body = {
+            code:2,
+            message:"请先删除本二级产品所关联换季清洗产品"
         }
     }
 
