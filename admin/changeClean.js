@@ -25,7 +25,7 @@ router.post('/set', async (ctx,next) => {
     } = ctx.request.body
 
     const data = await sql.find(SecondClassification,{second_classification_id},{_id:0})
-    await sql.insert(CarefullyChosen,{
+    await sql.insert(ChangeSeasonClean,{
         clean_changeSeason_id:uuid.v1(),
         clean_changeSeason_name,
         clean_changeSeason_image_url,

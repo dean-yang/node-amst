@@ -20,6 +20,8 @@ const firstClassificationAdmin = require('./admin/firstClassification')
 const secondClassificationAdmin = require('./admin/secondClassification')
 const carefullyChosenAdmin = require('./admin/carefullyChosen')
 const bannerAdmin = require('./admin/banner')
+const changeClean = require('./admin/changeClean')
+
 
 /**
  * api
@@ -83,6 +85,7 @@ app.use(firstClassificationAdmin.routes(),firstClassificationAdmin.allowedMethod
 app.use(secondClassificationAdmin.routes(),secondClassificationAdmin.allowedMethods())
 app.use(bannerAdmin.routes(),bannerAdmin.allowedMethods())
 app.use(carefullyChosenAdmin.routes(), carefullyChosenAdmin.allowedMethods())
+app.use(changeClean.routes(), changeClean.allowedMethods())
 
 /**
  * api
