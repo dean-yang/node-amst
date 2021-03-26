@@ -54,11 +54,24 @@ router.post('/get', async (ctx,next) => {
             code:0
         }
     }
+    const {
+        pageNo,
+        pageSize,
+        
+    }= ctx.request.body
+    const count = pageNo - 1
 
-    const data = await sql.find(CarefullyChosen,{},{_id:0})
+    const data = await sql.paging(CarefullyChosen,{},{_id:0},pageSize,count)
+    const total = await sql.find(CarefullyChosen,{},{_id:0},)
+
     return ctx.body = {
         code:1,
-        data
+        data:{
+            list:data,
+            pageNo:pageNo,
+            pageSize:pageSize,
+            total:total.length
+        }
     }
 })
 

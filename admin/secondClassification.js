@@ -123,16 +123,26 @@ router.post('/get',async (ctx,next)=>{
     const {
         pageNo,
         pageSize
-    } = ctx
-
-    const data =  await sql.paging(SecondClassification,{},{_id:0},pageNo,pageSize)
+    } = ctx.request.body
+    const count = pageNo - 1
+    const data =  await sql.paging(SecondClassification,{},{_id:0},pageSize,count)
+    const total = await sql.find(SecondClassification,{},{_id:0})
+    if(!pageNo){
+        return ctx.body = {
+            code:1,
+            data:{
+                list:total,
+            }
+        }
+    }
 
     return ctx.body = {
         code:1,
         data:{
             list:data,
-            pageNo,
-            pageSize:data.length
+            pageNo:pageNo,
+            pageSize,
+            total:total.length
         }
     }
 })
