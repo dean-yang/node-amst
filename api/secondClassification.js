@@ -16,5 +16,17 @@ router.post('/get',async (ctx,next)=>{
     }
 })
 
+// 获取某一条
+router.post('/detail',async (ctx,next)=>{
+    const {
+        second_classification_id
+    } = ctx.request.body
+    const data = await sql.find(SecondClassification,{second_classification_id},{_id:0})
+    return ctx.body = {
+        code:1,
+        data:data[0]
+    }
+})
+
 
 module.exports =  router
