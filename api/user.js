@@ -59,13 +59,15 @@ router.post('/login', async (ctx,next)=>{
                 user_tel
             })
             const upData = await sql.find(User,{user_id:app.openid},{_id:0})
-            const {
-                user_id,user_tel,user_name,user_avatar,user_firsttime,user_lasttime
-            } = upData[0]
             return ctx.body = {
                 code:1,
                 data:{
-                    user_id,user_tel,user_name,user_avatar,user_firsttime,user_lasttime,
+                    user_id:upData[0].user_id,
+                    user_tel:upData[0].user_tel,
+                    user_name:upData[0].user_name,
+                    user_avatar:upData[0].user_avatar,
+                    user_firsttime:upData[0].user_firsttime,
+                    user_lasttime:upData[0].user_lasttime,
                     session_key:app.session_key,
                 }
             }
@@ -93,14 +95,16 @@ router.post('/login', async (ctx,next)=>{
                 }
             }
         }
-    }catch{
+    }catch(error){
         return ctx.body = {
             code:0,
-            message:"登陆失败，请重新登陆或联系客服"
+            message:"登陆失败，请重新登陆或联系客服",
+            error:error
         }
     }
     
 })
+
 
 
 
