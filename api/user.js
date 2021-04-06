@@ -53,13 +53,19 @@ router.post('/login', async (ctx,next)=>{
         const userData = await sql.find(User,{user_id:app.openid},{_id:0})
         if(userData.length > 0){
             await sql.update(User,{user_id:app.openid},{
-                user_lasttime:new Date().getTime()
+                user_lasttime:new Date().getTime(),
+                user_name,
+                user_avatar,
+                user_tel
             })
             const upData = await sql.find(User,{user_id:app.openid},{_id:0})
+            const {
+                user_id,user_tel,user_name,user_avatar,user_firsttime,user_lasttime
+            } = upData[0]
             return ctx.body = {
                 code:1,
                 data:{
-                    ...upData[0],
+                    user_id,user_tel,user_name,user_avatar,user_firsttime,user_lasttime,
                     session_key:app.session_key,
                 }
             }
