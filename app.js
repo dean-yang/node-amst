@@ -31,6 +31,9 @@ const secondClassificationApi = require('./api/secondClassification')
 const bannerApi = require('./api/banner')
 const carefullyChosenApi = require('./api/carefullyChosen')
 const changeCleanApi = require('./api/changeClean')
+const userApi = require('./api/user')
+const addressApi = require('./api/address')
+
 
 
 
@@ -99,6 +102,8 @@ app.use(changeClean.routes(), changeClean.allowedMethods())
  app.use(bannerApi.routes(),bannerApi.allowedMethods())
  app.use(carefullyChosenApi.routes(),carefullyChosenApi.allowedMethods())
  app.use(changeCleanApi.routes(),changeCleanApi.allowedMethods())
+ app.use(userApi.routes(),userApi.allowedMethods())
+ app.use(addressApi.routes(),addressApi.allowedMethods())
  
 
 

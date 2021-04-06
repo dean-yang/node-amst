@@ -12,7 +12,6 @@
     adress_detailed:{type: String},
     contacts_name:{type: String},
     contacts_tel:{type: String},
-    province:{type:String},
     city:{type: String},
     area:{type: String},
     user_id:{type: String}
