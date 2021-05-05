@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // 链接地址
-const DB_URL = 'mongodb://47.108.200.61:27017/amst';
+const DB_URL = 'mongodb://47.108.228.93:27017/amst';
 
 // 链接数据库服务器
 mongoose.connect(DB_URL, { useNewUrlParser: true,  useUnifiedTopology: true });
